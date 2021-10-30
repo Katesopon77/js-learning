@@ -17,7 +17,7 @@
 // var c;
 // c = [];
 // c = function() {
-    
+
 // };
 
 // c = {}; // เฉพาะ  json ชนิดเดียวที่จะทำให้ไม่ copy
@@ -25,7 +25,6 @@
 // d = c;
 
 // //--------------------------------------// จบการประกาศตัวแปร ประเภทตัวแปรและ assign
-
 
 // // if else
 // //operator == ให้ใช้ 2 ตัวเสมอเพื่อเจอ bug ได้ง่ายเพื่อแก้ไขได้ทัน
@@ -61,7 +60,6 @@
 // let m = sum(20,'dadasda');
 // console.log(m)
 
-
 // //recursive ปกติ
 // function tofifty (x) {
 //     if (typeof(x) !== "number") {
@@ -77,13 +75,12 @@
 // }
 // console.log(tofifty(500))
 
-
 // // recursive callback
 // function tofifty (x, callback) {
 //     if (typeof(x) !== "number") {
 //         callback(x);
 //     }
-    
+
 //     if (x > 50 ) {
 //         tofifty(x-1,callback);
 //     } else if (x < 50) {
@@ -97,8 +94,6 @@
 //     console.log(this_x)
 // }
 // tofifty(500,value)
-
-
 
 //-ห้ามใช้ JSON
 //-โจทย์ ทำ Function Clean Data โดยการนำ ARRAY เริ่มต้นมาทำการการทำ Clean ให้ได้ผลลัพท์ตามด้านล่าง
@@ -114,39 +109,61 @@
 //- *** โจทย์นี้เน้นเรื่อง function และการ looping , callback , recursive
 //- **** ตัวแปร/function ของโจทย์ห้ามถูกเปลี่ยนแปลง
 
-var data = [0,'0',"ADsadA",4,234,"daad","bdf4kg","asdk3","432","234","fsdkfTTfkb",4266,2,4,1,"ads3f","Sfhkv","dhyj3","s5","allg"];
+var data = [
+  0,
+  "0",
+  "ADsadA",
+  4,
+  234,
+  "daad",
+  "bdf4kg",
+  "asdk3",
+  "432",
+  "234",
+  "fsdkfTTfkb",
+  4266,
+  2,
+  4,
+  1,
+  "ads3f",
+  "Sfhkv",
+  "dhyj3",
+  "s5",
+  "allg",
+];
 var item = data[5];
 var count = 4141;
 let arrNum = [];
 let arrStr = [];
 
-function isSuccess(){
-	let random_boolean = Math.random() < 0.5;
-	return random_boolean
+function isSuccess() {
+  let random_boolean = Math.random() < 0.5;
+  return random_boolean;
 }
 
-function checkType (item) {
-  if(Number(item) || Number(item) == 0) {
-    return 'number';
+function checkType(item) {
+  if (Number(item) || Number(item) == 0) {
+    return "number";
   } else {
-    return 'text';
+    return "text";
   }
 }
 
-function pushArr (item,arr) {
-  arr.push(item)
+function pushArr(item, arr) {
+  arr.push(item);
 }
 
 function includeNum(item) {
-  /// ฟังค์ชั่นใน item ที่โยนมามีตัวเลขไหม ?
+  /// ฟังค์ชั่นใที่โยนมามีตัวเลขไหม ?
   // เริ่มไล่นับทีละตัวจากซ้ายไปขวาให้ให้เช็คว่าเป็นตัวเลขไหม โดยการแปลงค่า item เป็นตัวเลข
   // ถ้าเป็นตัวเลขให้บอกว่า 'มีตัวเลข' true
   // ถ้าไม่มีให้บอกว่า 'ไม่มี' false
+  if (Number(item)) {
+    return true;
+  } else {
+    return false;
+  }
 }
-
-///ฟังค์ชั่นแยกข้อมูลที่ส่งเข้ามา
-// ถ้ามีตัวเลขให้แยกออกมา แล้วเอาไปเพิ่มไว้ใน arrNum ที่เป็นประเภทตัวเลข
-// ถ้าเป็นตัวอักษรให้แยกไว้ใน arrStr ที่เป็นประเภทตัวอักษร
 
 /// ฟังค์ชั่นเช็คจำนวนตัวเลขทั้งหมด
 // นำของข้างใน arrNum มาเช็คจำนวนทั้งหมดของตัวเลข
@@ -172,22 +189,26 @@ function includeNum(item) {
 /// ฟังค์ชั่น ตัวอักษรต่อกัน
 // นำของข้างใน arrStr ออกมาปริ้นเรียงกัน
 
-function main(skgokdohktgsjfnkfkdorr){
-	let data = skgokdohktgsjfnkfkdorr;
+function main(skgokdohktgsjfnkfkdorr) {
+  let data = skgokdohktgsjfnkfkdorr;
   data.forEach(function (item) {
-    if(checkType(item) == 'number') {
-      pushArr(item,arrNum)
-      // console.log(arrNum);
-    } else if (checkType(item) == 'text'){
-      pushArr(item,arrStr);
-      // console.log(arrStr);
+    includeNum(item);
+    if (checkType(item) == "number") {
+      pushArr(Number(item), arrNum);
+    } else if (checkType(item) == "text") {
+      for (let i = 0; i < item.length; i++) {
+        if (includeNum(item[i]) == true) {
+          pushArr(Number(item[i]), arrNum);
+        }
+      }
+      pushArr(item, arrStr);
     }
   });
-  // console.log(arrNum)
-  // console.log(arrStr)
+  console.log(arrNum)
+  console.log(arrStr)
 }
 
-main(data)
+main(data);
 //- ตัวอย่างผลลัพท์
 //- ตัวเลขทั้งหมด : 146 ตัวเลข
 //- ตัวเลขซ้ำกัน : 1 (14 ครั้ง) 2 (24 ครั้ง)
